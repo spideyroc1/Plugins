@@ -11,8 +11,8 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 
@@ -31,14 +31,18 @@ public class Core extends JavaPlugin implements Listener{
 						setFlightState(p);
 					}
 					
-			}, 5, 5);
+				}, 5, 5);
 			runnableMap.put(p.getUniqueId(), taskID);
+			}
 		}
-		}
+	
+	public void onQuit(PlayerQuitEvent event){
+		cancelRunnable(event.getPlayer());
+	}
 	
 	public void setFlightState(Player p){
 		GameMode c = p.getGameMode();
-		if (!(c == GameMode.CREATIVE) && p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR){
+		if (c != GameMode.CREATIVE && p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR){
 			p.setAllowFlight(true);
 		}
 	}
@@ -46,6 +50,7 @@ public class Core extends JavaPlugin implements Listener{
 	public void cancelRunnable(Player player){
 		if (runnableMap.containsKey(player.getUniqueId())){
 			Bukkit.getScheduler().cancelTask(runnableMap.get(player.getUniqueId()));
+			runnableMap.remove(player.getUniqueId());
 		}
 	}
 		
