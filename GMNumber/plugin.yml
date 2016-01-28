@@ -1,0 +1,8 @@
+main: net.parkourworld.GMNumber.Core
+version: 1.0
+name: GMNumber
+commands:
+  gmnumber:
+    description: Gives the amount of players in a specified gamemode
+    usage: /gmnumber Gamemode
+      

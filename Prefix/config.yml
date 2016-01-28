@@ -1,0 +1,10 @@
+#Permission setup
+#prefix.vip
+#prefix.Premium etc.
+#Use & and a color code for colors
+Prefixes:
+  VIP: 'Vip '
+  Premium: '&4Premium '
+  #perm: prefix.admin
+  #You can add as many as you would like
+  Admin: 'Admin '
